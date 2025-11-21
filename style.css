@@ -1,0 +1,219 @@
+:root {
+    --primary: #FF4500; /* Neon Orange */
+    --secondary: #00E5FF; /* Cyan */
+    --dark: #121212;
+    --carbon-dark: #1a1a1a;
+    --text: #ffffff;
+    --glass: rgba(20, 20, 20, 0.9);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #000;
+    /* Background: Blur Photo + Dark Overlay */
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                      url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- Carbon Fiber Texture Pattern --- */
+.carbon-bg {
+    background: 
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(201deg, #151515 5px, transparent 5px) 10px 5px,
+        linear-gradient(24deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(213deg, #222 5px, transparent 5px) 10px 10px,
+        linear-gradient(bottom, #111, #333);
+    background-color: #1a1a1a;
+    background-size: 20px 20px;
+}
+
+/* --- Layout Grid --- */
+.app-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    padding: 30px;
+    border-right: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--primary);
+    font-style: italic;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+}
+.logo span { color: #fff; }
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 15px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    border-left: 3px solid transparent;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(255,69,0,0.2), transparent);
+    border-left: 3px solid var(--primary);
+}
+
+/* --- Main Content --- */
+.main-content {
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.section { display: none; animation: fadeIn 0.5s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+h2 {
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* --- Cards & Widgets --- */
+.card {
+    background: var(--glass);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Dashboard Stats */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+.stat-box {
+    background: linear-gradient(145deg, #222, #1a1a1a);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border-bottom: 3px solid var(--secondary);
+}
+.stat-num { font-size: 3rem; font-weight: 900; color: #fff; }
+.stat-label { color: #aaa; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Progress Bar */
+.progress-container {
+    background: #333;
+    height: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow: hidden;
+    position: relative;
+}
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #ff8c00);
+    width: 0%;
+    transition: 1s;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* --- Forms --- */
+.form-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 8px; color: var(--primary); font-weight: bold; }
+input, select {
+    width: 100%;
+    padding: 12px;
+    background: #222;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 6px;
+    font-size: 16px;
+}
+input:focus, select:focus { outline: none; border-color: var(--primary); }
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 100%;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+.btn-primary:hover {
+    background: #ff2a00;
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+    transform: scale(1.02);
+}
+
+/* --- Table --- */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th { text-align: left; padding: 15px; background: #222; color: var(--primary); }
+td { padding: 15px; border-bottom: 1px solid #333; color: #ddd; }
+tr:hover td { background: #1f1f1f; }
+
+/* --- Badges --- */
+.badge-grid { display: flex; gap: 15px; flex-wrap: wrap; }
+.badge {
+    background: #222;
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid #444;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.badge.unlocked {
+    opacity: 1;
+    border-color: var(--secondary);
+    background: rgba(0, 229, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+}
+.badge i { color: var(--secondary); font-size: 1.2rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .app-container { grid-template-columns: 1fr; }
+    .sidebar { padding: 15px; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 2px solid #333; }
+    .logo { font-size: 20px; margin-bottom: 0; margin-right: 20px; }
+    .nav-btn { padding: 10px; font-size: 14px; }
+    .main-content { padding: 20px; }
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportify - Track Your Limits</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Icon Library (FontAwesome) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Chart JS (Untuk Grafik) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Hubungkan dengan CSS kita -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Sidebar Nav -->
+    <nav class="sidebar carbon-bg">
+        <div class="logo">SPORT<span>IFY</span></div>
+        <button class="nav-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="nav-btn" onclick="switchTab('add')">Catat Aktivitas</button>
+        <button class="nav-btn" onclick="switchTab('history')">Riwayat</button>
+        <button class="nav-btn" onclick="switchTab('profile')">Profil & Target</button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <!-- 1. DASHBOARD -->
+        <div id="dashboard" class="section active">
+            <div class="card">
+                <h2>Performa Hari Ini</h2>
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-num" id="dash-cal">0</div>
+                        <div class="stat-label">Kalori (Kcal)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num" id="dash-min">0</div>
+                        <div class="stat-label">Menit Latihan</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num" id="dash-count">0</div>
+                        <div class="stat-label">Sesi</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Target Mingguan</h2>
+                <p style="display:flex; justify-content:space-between;">
+                    <span>Progress Waktu Latihan</span>
+                    <span id="target-text">0 / 150 Menit</span>
+                </p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="weekly-progress"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Grafik Mingguan</h2>
+                <canvas id="myChart" height="100"></canvas>
+            </div>
+        </div>
+
+        <!-- 2. TAMBAH AKTIVITAS -->
+        <div id="add" class="section">
+            <div class="card">
+                <h2>Input Latihan Baru</h2>
+                <form id="activityForm" onsubmit="saveActivity(event)">
+                    <div class="form-group">
+                        <label>Jenis Olahraga</label>
+                        <select id="type" required>
+                            <option value="Lari">Lari (Running)</option>
+                            <option value="Bersepeda">Bersepeda (Cycling)</option>
+                            <option value="Push Up">Push Up / Kalistenik</option>
+                            <option value="Renang">Berenang</option>
+                            <option value="Gym">Angkat Beban (Gym)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Durasi (Menit)</label>
+                        <input type="number" id="duration" placeholder="Contoh: 30" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jarak (Km) - Opsional</label>
+                        <input type="number" id="distance" placeholder="Contoh: 5">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <button type="submit" class="btn-primary">SIMPAN DATA & HITUNG KALORI</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 3. RIWAYAT -->
+        <div id="history" class="section">
+            <div class="card">
+                <h2>Riwayat Aktivitas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Aktivitas</th>
+                            <th>Durasi</th>
+                            <th>Kalori</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-body">
+                        <!-- Data akan masuk di sini via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. PROFIL & TARGET -->
+        <div id="profile" class="section">
+            <div class="card">
+                <h2>Profil Pengguna</h2>
+                <div class="form-group">
+                    <label>Berat Badan (Kg)</label>
+                    <input type="number" id="weight" value="70" onchange="updateSettings()">
+                </div>
+                <div class="form-group">
+                    <label>Target Mingguan (Menit)</label>
+                    <input type="number" id="weeklyTarget" value="150" onchange="updateSettings()">
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Badges & Pencapaian</h2>
+                <div class="badge-grid">
+                    <div class="badge unlocked" id="badge-newbie">
+                        <span>🔥</span> Pemula (Login Pertama)
+                    </div>
+                    <div class="badge" id="badge-burner">
+                        <span>⚡</span> Calorie Burner (>500 Kcal)
+                    </div>
+                    <div class="badge" id="badge-marathon">
+                        <span>🏃</span> Marathoner (>60 Menit)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Hubungkan dengan file JS kita -->
+<script src="script.js"></script>
+
+</body>
+</html>
